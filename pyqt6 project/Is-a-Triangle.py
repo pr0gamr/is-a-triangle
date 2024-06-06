@@ -30,43 +30,31 @@ class MainWindow(QMainWindow):
 
     def valuechangeda(self, a):
         self.sidea = a
-        print(a)
     def valuechangedb(self, b):
         self.sideb = b
-        print(b)
     def valuechangedc(self, c):
         self.sidec = c
-        print(c)
 
     def calculatetri(self):
         self.canBe = ""
         self.typeOfTri = ""
         if self.sidea != 0 and self.sideb != 0 and self.sidec != 0:
             if self.sidea + self.sideb > self.sidec and self.sidea + self.sidec > self.sideb and self.sideb + self.sidec > self.sidea:
-                print("This can be a triangle,")
                 self.canBe = "This can be a triangle,"
                 
                 #below to determine what type of triangle
                 if self.sidea != self.sideb and self.sideb != self.sidec and self.sidec != self.sidea:
-                    print("it would be a scalene triangle")
                     self.typeOfTri = "it would be a scalene triangle"
                 elif self.sidea == self.sideb and self.sideb == self.sidec:
-                    print("it would be an equalateral triangle")
                     self.typeOfTri = "it would be an equalateral triangle"
                 else:
-                    print("it would be an isosceles triangle")
                     self.typeOfTri = "it would be an isosceles triangle"
                     
             else:
-                print("This can NOT be a triangle")
                 self.canBe = "This can not be a triangle"
         else:
-            print("Please enter non-zero values")
             self.canBe = "Please enter non-zero values"
         self.output.setText(f"{self.canBe} {self.typeOfTri}")
-    
-    def test(self):
-        print("godwhy")
 
     def __init__(self):
         super().__init__()
