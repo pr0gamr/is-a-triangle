@@ -27,7 +27,19 @@ from PySide6.QtWidgets import (
 
 # Subclass QMainWindow to customize your application's main window
 class MainWindow(QMainWindow):
+
+    def valuechangeda(self, a):
+        self.sidea = a
+        print(a)
+    def valuechangedb(self, a):
+        self.sidea = a
+        print(a)
+    def valuechangedc(self, a):
+        self.sidea = a
+        print(a)
+
     def calculatetri(self, a, b, c):
+        print(a)
         if a + b > c and a + c > b and b + c > a:
             print("This can be a triangle,")
             
@@ -47,6 +59,9 @@ class MainWindow(QMainWindow):
 
         canBe = ""
         typeOfTri = ""
+        sidea = 1.0
+        sideb = 1.0
+        sidec = 1.0
 
         self.setWindowTitle("Is It a Triangle")
 
@@ -70,6 +85,9 @@ class MainWindow(QMainWindow):
         
         a = QDoubleSpinBox()
         title_a = QLabel("Side A")
+        a.setMinimum(0)
+        a.setMaximum(99999.99)
+        a.valueChanged.connect(self.valuechangeda)
         layout1.addWidget(title_a)
         layout1.addWidget(a)
         layout1.setContentsMargins(0,0,0,0)
@@ -77,6 +95,9 @@ class MainWindow(QMainWindow):
 
         b = QDoubleSpinBox()
         title_b = QLabel("Side B")
+        b.setMinimum(0)
+        a.setMaximum(99999.99)
+        b.valueChanged.connect(self.valuechangedb)
         layout2.addWidget(title_b)
         layout2.addWidget(b)
         layout2.setContentsMargins(0,0,0,0)
@@ -84,6 +105,9 @@ class MainWindow(QMainWindow):
 
         c = QDoubleSpinBox()
         title_c = QLabel("Side C")
+        c.setMinimum(0)
+        c.setMaximum(99999.99)
+        c.valueChanged.connect(self.valuechangedc)
         layout3.addWidget(title_c)
         layout3.addWidget(c)
         layout3.setContentsMargins(0,0,0,0)
@@ -91,7 +115,7 @@ class MainWindow(QMainWindow):
 
         calculate = QPushButton("Calculate")
         output = QLabel(canBe + typeOfTri)
-        calculate.clicked.connect(self.calculatetri(1,1,1))
+        calculate.clicked.connect(self.calculatetri(sidea,sideb,sidec))
         layout4.addWidget(calculate)
         layout4.addWidget(output)
 
@@ -107,6 +131,7 @@ class MainWindow(QMainWindow):
         # to take up all the space in the window by default.
         self.setCentralWidget(widget)
 
+    
 
 app = QApplication(sys.argv)
 window = MainWindow()
