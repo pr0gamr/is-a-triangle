@@ -31,37 +31,51 @@ class MainWindow(QMainWindow):
     def valuechangeda(self, a):
         self.sidea = a
         print(a)
-    def valuechangedb(self, a):
-        self.sidea = a
-        print(a)
-    def valuechangedc(self, a):
-        self.sidea = a
-        print(a)
+    def valuechangedb(self, b):
+        self.sideb = b
+        print(b)
+    def valuechangedc(self, c):
+        self.sidec = c
+        print(c)
 
-    def calculatetri(self, a, b, c):
-        print(a)
-        if a + b > c and a + c > b and b + c > a:
-            print("This can be a triangle,")
-            
-            #below to determine what type of triangle
-            if a != b and b != c and c != a:
-                print("it would be a scalene triangle")
-            elif a == b and b == c:
-                print("it would be an equalateral triangle")
-            else:
-                print("it would be an isosceles triangle")
+    def calculatetri(self):
+        self.canBe = ""
+        self.typeOfTri = ""
+        if self.sidea != 0 and self.sideb != 0 and self.sidec != 0:
+            if self.sidea + self.sideb > self.sidec and self.sidea + self.sidec > self.sideb and self.sideb + self.sidec > self.sidea:
+                print("This can be a triangle,")
+                self.canBe = "This can be a triangle,"
                 
+                #below to determine what type of triangle
+                if self.sidea != self.sideb and self.sideb != self.sidec and self.sidec != self.sidea:
+                    print("it would be a scalene triangle")
+                    self.typeOfTri = "it would be a scalene triangle"
+                elif self.sidea == self.sideb and self.sideb == self.sidec:
+                    print("it would be an equalateral triangle")
+                    self.typeOfTri = "it would be an equalateral triangle"
+                else:
+                    print("it would be an isosceles triangle")
+                    self.typeOfTri = "it would be an isosceles triangle"
+                    
+            else:
+                print("This can NOT be a triangle")
+                self.canBe = "This can not be a triangle"
         else:
-            print("This can NOT be a triangle")
+            print("Please enter non-zero values")
+            self.canBe = "Please enter non-zero values"
+        self.output.setText(f"{self.canBe} {self.typeOfTri}")
+    
+    def test(self):
+        print("godwhy")
 
     def __init__(self):
         super().__init__()
 
-        canBe = ""
-        typeOfTri = ""
-        sidea = 1.0
-        sideb = 1.0
-        sidec = 1.0
+        self.canBe = ""
+        self.typeOfTri = ""
+        self.sidea = 0.0
+        self.sideb = 0.0
+        self.sidec = 0.0
 
         self.setWindowTitle("Is It a Triangle")
 
@@ -80,8 +94,10 @@ class MainWindow(QMainWindow):
         ]
 
         widget = QLabel("Enter side lengths please.")
-        widget.setAlignment(Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignHCenter)
+        widget.setAlignment(Qt.AlignmentFlag.AlignTop)
         layout0.addWidget(widget)
+        layout0.setContentsMargins(0,20,0,0)
+        layout0.setSpacing(10)
         
         a = QDoubleSpinBox()
         title_a = QLabel("Side A")
@@ -90,18 +106,18 @@ class MainWindow(QMainWindow):
         a.valueChanged.connect(self.valuechangeda)
         layout1.addWidget(title_a)
         layout1.addWidget(a)
-        layout1.setContentsMargins(0,0,0,0)
-        layout1.setSpacing(20)
+        layout1.setContentsMargins(0,20,0,0)
+        layout1.setSpacing(10)
 
         b = QDoubleSpinBox()
         title_b = QLabel("Side B")
         b.setMinimum(0)
-        a.setMaximum(99999.99)
+        b.setMaximum(99999.99)
         b.valueChanged.connect(self.valuechangedb)
         layout2.addWidget(title_b)
         layout2.addWidget(b)
-        layout2.setContentsMargins(0,0,0,0)
-        layout2.setSpacing(20)
+        layout2.setContentsMargins(0,20,0,0)
+        layout2.setSpacing(10)
 
         c = QDoubleSpinBox()
         title_c = QLabel("Side C")
@@ -110,14 +126,14 @@ class MainWindow(QMainWindow):
         c.valueChanged.connect(self.valuechangedc)
         layout3.addWidget(title_c)
         layout3.addWidget(c)
-        layout3.setContentsMargins(0,0,0,0)
-        layout3.setSpacing(20)
+        layout3.setContentsMargins(0,20,0,0)
+        layout3.setSpacing(10)
 
         calculate = QPushButton("Calculate")
-        output = QLabel(canBe + typeOfTri)
-        calculate.clicked.connect(self.calculatetri(sidea,sideb,sidec))
+        self.output = QLabel(self.canBe + self.typeOfTri)
+        calculate.clicked.connect(self.calculatetri)
         layout4.addWidget(calculate)
-        layout4.addWidget(output)
+        layout4.addWidget(self.output)
 
         layout.addLayout(layout0)
         layout.addLayout(layout1)
