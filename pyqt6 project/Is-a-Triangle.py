@@ -46,7 +46,7 @@ class MainWindow(QMainWindow):
                 if self.sidea != self.sideb and self.sideb != self.sidec and self.sidec != self.sidea:
                     self.typeOfTri = "it would be a scalene triangle"
                 elif self.sidea == self.sideb and self.sideb == self.sidec:
-                    self.typeOfTri = "it would be an equalateral triangle"
+                    self.typeOfTri = "it would be an equilateral triangle"
                 else:
                     self.typeOfTri = "it would be an isosceles triangle"
                     
@@ -118,7 +118,7 @@ class MainWindow(QMainWindow):
         layout3.setSpacing(10)
 
         calculate = QPushButton("Calculate")
-        self.output = QLabel(self.canBe + self.typeOfTri)
+        self.output = QLabel("Please input values and hit calculate")
         calculate.clicked.connect(self.calculatetri)
         layout4.addWidget(calculate)
         layout4.addWidget(self.output)
